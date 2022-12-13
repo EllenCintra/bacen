@@ -19,7 +19,7 @@ public class CadastroChaveProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void publish(String key, String message) {
+    public void producer(String key, String message) {
         kafkaTemplate.send(this.topic, key, message).addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
             @Override
             public void onFailure(Throwable ex) {

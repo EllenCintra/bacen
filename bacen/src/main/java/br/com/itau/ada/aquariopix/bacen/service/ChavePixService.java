@@ -2,7 +2,6 @@ package br.com.itau.ada.aquariopix.bacen.service;
 
 import br.com.itau.ada.aquariopix.bacen.enums.StatusSolicitacoes;
 import br.com.itau.ada.aquariopix.bacen.kafka.producer.CadastroChaveProducer;
-import br.com.itau.ada.aquariopix.bacen.model.ChavePix;
 import br.com.itau.ada.aquariopix.bacen.repository.ChavePixRepository;
 import com.google.gson.Gson;
 import br.com.itau.ada.aquariopix.bacen.dto.ChavePixConfirmacaoDto;
@@ -36,7 +35,7 @@ public class ChavePixService {
             chavePixConfirmacaoDto.setStatus(StatusSolicitacoes.Aceito);
         }
 
-        //publicarConfirmacaoChave(chavePixConfirmacaoDto);
+        publicarConfirmacaoChave(chavePixConfirmacaoDto);
 
         return chavePixConfirmacaoDto;
     }
@@ -45,7 +44,7 @@ public class ChavePixService {
         String message = new Gson().toJson(chavePixConfirmacaoDto);
         String key = chavePixConfirmacaoDto.getReqId() + chavePixConfirmacaoDto.getBanco();
 
-        cadastroChaveProducer.publish(key, message);
+        cadastroChaveProducer.producer(key, message);
     }
 
 }
